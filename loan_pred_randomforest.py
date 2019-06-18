@@ -1,4 +1,4 @@
-#libraries
+#import libraries
 import numpy as np
 import pandas as pd
 
@@ -10,11 +10,11 @@ y_train=dataset1.iloc[:,12]
 dataset2=pd.read_csv('testset_loan_pred.csv')
 X_test=dataset2.iloc[:, 1:12]
 
-#exploratory data analysis fro continuous variables
+#exploratory data analysis for continuous variables
 X_train['ApplicantIncome'].hist(bins=50)
 X_train.boxplot(column ='ApplicantIncome') # lots of outliers are there
 X_train.boxplot(column ='ApplicantIncome', by='Education')
-#we will see that there is no substantial difference btw the mean income of graduates and non graduates.
+#there is not much difference btw the mean income of graduates and non graduates.
 #but there are higher no. of graduates,with very high income,which are appereaing to be outliers.
 X_train['LoanAmount'].hist(bins=50)
 X_train.boxplot(column ='LoanAmount')
@@ -36,7 +36,7 @@ X_test['TotalIncome']=np.log(X_test['TotalIncome'])
 X_train.drop(["ApplicantIncome","CoapplicantIncome"],axis=1,inplace=True)
 X_test.drop(["ApplicantIncome","CoapplicantIncome"],axis=1,inplace=True)
 
-#missing value treatment in training set
+#replace missing value in training set
 X_train.apply(lambda x: sum(x.isnull()),axis=0) #to check missing values in each column
 
 #filling missing values in self employed
@@ -78,7 +78,7 @@ X_test.apply(lambda x: sum(x.isnull()),axis=0) #to check missing values in each 
 X_test['Self_Employed'].value_counts()
 X_test['Self_Employed'].fillna('No',inplace=True) #impute missing value with No (median)
 
-# imputing missing value of loan amount based on Self_Employed and Education using pivot approach 
+# imputing missing value of loan amount based on Self_Employed and Education using pivot table
 table = X_test.pivot_table(values='LoanAmount', index='Self_Employed' ,columns='Education', aggfunc=np.median)
 print(table)
 # Define function to return value of this pivot_table
