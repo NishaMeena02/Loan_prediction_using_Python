@@ -133,7 +133,7 @@ accuracies.mean()
 y_test=classifier.predict(X_test)
 y_test=pd.Series(y_test)
 
-#fitiing random forest on training set
+#fitiing random forest on test set
 from sklearn.ensemble import RandomForestClassifier
 classifier=RandomForestClassifier(n_estimators=300 ,n_jobs=-1,oob_score=True,max_depth=7,
                                   criterion ='entropy',random_state=50,max_features="auto",min_samples_leaf=50)
@@ -147,3 +147,4 @@ accuracies_test.mean()
 
 #to convert series into csv 
 sample=pd.Series.to_csv(y_test,index=None)
+#public score=0.7778
